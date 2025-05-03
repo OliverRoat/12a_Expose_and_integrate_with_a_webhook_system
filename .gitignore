@@ -1,0 +1,58 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Poetry virtualenv
+.env
+.venv/
+venv/
+ENV/
+env/
+.venv.bak/
+
+# Pytest / coverage / test cache
+.cache/
+*.cover
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+nosetests.xml
+test-results.xml
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# SQLite DB files
+*.db
+
+# Log files
+*.log
+
+# MacOS metadata
+.DS_Store
+
+# Python environment files
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Compiled Cython files
+*.c
+*.so
+
+# Local .env secrets
+.env.*

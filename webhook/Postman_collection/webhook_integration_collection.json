@@ -1,0 +1,105 @@
+{
+  "info": {
+    "name": "Webhook Integration Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection for integrating with the Webhook Exposee API"
+  },
+  "item": [
+    {
+      "name": "Register Webhook",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"payment_received\",\n  \"url\": \"http://localhost:9000/\"\n}"
+        },
+        "url": {
+          "raw": "https://{{base_url}}/register",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "register"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Simulate Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"payment_received\"\n}"
+        },
+        "url": {
+          "raw": "https://{{base_url}}/simulate-event",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "simulate-event"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Ping All Webhooks",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "https://{{base_url}}/ping",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "ping"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Unregister Webhook",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"payment_received\",\n  \"url\": \"http://localhost:9000/\"\n}"
+        },
+        "url": {
+          "raw": "https://{{base_url}}/unregister",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "unregister"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "a1b2c3d4.ngrok-free.app"
+    }
+  ]
+}
