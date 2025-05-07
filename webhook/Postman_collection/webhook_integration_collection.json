@@ -1,12 +1,11 @@
 {
   "info": {
-    "name": "Webhook Integration Collection",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "Collection for integrating with the Webhook Exposee API"
+    "name": "Webhook Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Register Webhook",
+      "name": "Register Webhook - payment_received",
       "request": {
         "method": "POST",
         "header": [
@@ -17,21 +16,18 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"event_type\": \"payment_received\",\n  \"url\": \"http://localhost:9000/\"\n}"
+          "raw": "{\n  \"event\": \"payment_received\",\n  \"url\": \"https://my-custom-subdomain.loca.lt/webhook\"\n}"
         },
         "url": {
-          "raw": "https://{{base_url}}/register",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "register"
-          ]
+          "raw": "(i will give you the ngronk url)/register",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["register"]
         }
       }
     },
     {
-      "name": "Simulate Event",
+      "name": "Register Webhook - payment_processed",
       "request": {
         "method": "POST",
         "header": [
@@ -42,16 +38,79 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"event_type\": \"payment_received\"\n}"
+          "raw": "{\n  \"event\": \"payment_processed\",\n  \"url\": \"https://my-custom-subdomain.loca.lt/webhook\"\n}"
         },
         "url": {
-          "raw": "https://{{base_url}}/simulate-event",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "simulate-event"
-          ]
+          "raw": "(i will give you the ngronk url)/register",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["register"]
+        }
+      }
+    },
+    {
+      "name": "Register Webhook - invoice_processing",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event\": \"invoice_processing\",\n  \"url\": \"https://my-custom-subdomain.loca.lt/webhook\"\n}"
+        },
+        "url": {
+          "raw": "(i will give you the ngronk url)/register",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["register"]
+        }
+      }
+    },
+    {
+      "name": "Register Webhook - invoice_completed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event\": \"invoice_completed\",\n  \"url\": \"https://my-custom-subdomain.loca.lt/webhook\"\n}"
+        },
+        "url": {
+          "raw": "(i will give you the ngronk url)/register",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["register"]
+        }
+      }
+    },
+    {
+      "name": "Register Webhook - Invalid URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event\": \"payment_received\",\n  \"url\": \"https://this-needs-to-fail.lt/webhook\"\n}"
+        },
+        "url": {
+          "raw": "(i will give you the ngronk url)/register",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["register"]
         }
       }
     },
@@ -60,18 +119,15 @@
       "request": {
         "method": "GET",
         "url": {
-          "raw": "https://{{base_url}}/ping",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "ping"
-          ]
+          "raw": "(i will give you the ngronk url)/ping",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["ping"]
         }
       }
     },
     {
-      "name": "Unregister Webhook",
+      "name": "Unregister Webhook - payment_received",
       "request": {
         "method": "POST",
         "header": [
@@ -82,24 +138,81 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"event_type\": \"payment_received\",\n  \"url\": \"http://localhost:9000/\"\n}"
+          "raw": "{\n  \"event\": \"payment_received\",\n  \"url\": \"https://my-custom-subdomain.loca.lt/webhook\"\n}"
         },
         "url": {
-          "raw": "https://{{base_url}}/unregister",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "unregister"
-          ]
+          "raw": "(i will give you the ngronk url)/unregister",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["unregister"]
         }
       }
-    }
-  ],
-  "variable": [
+    },
     {
-      "key": "base_url",
-      "value": "a1b2c3d4.ngrok-free.app"
+      "name": "Unregister Webhook - payment_processed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event\": \"payment_processed\",\n  \"url\": \"https://my-custom-subdomain.loca.lt/webhook\"\n}"
+        },
+        "url": {
+          "raw": "(i will give you the ngronk url)/unregister",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["unregister"]
+        }
+      }
+    },
+    {
+      "name": "Unregister Webhook - invoice_processing",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event\": \"invoice_processing\",\n  \"url\": \"https://my-custom-subdomain.loca.lt/webhook\"\n}"
+        },
+        "url": {
+          "raw": "(i will give you the ngronk url)/unregister",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["unregister"]
+        }
+      }
+    },
+    {
+      "name": "Unregister Webhook - invoice_completed",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event\": \"invoice_completed\",\n  \"url\": \"https://my-custom-subdomain.loca.lt/webhook\"\n}"
+        },
+        "url": {
+          "raw": "(i will give you the ngronk url)/unregister",
+          "protocol": "https",
+          "host": ["e6c1-85-82-70-165", "ngrok-free", "app"],
+          "path": ["unregister"]
+        }
+      }
     }
   ]
 }

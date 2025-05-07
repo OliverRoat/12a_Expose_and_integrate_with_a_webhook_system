@@ -3,7 +3,7 @@ import datetime
 
 app = FastAPI()
 
-@app.post("/")
+@app.post("/webhook")
 async def receive_webhook(request: Request):
     body = await request.json()
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

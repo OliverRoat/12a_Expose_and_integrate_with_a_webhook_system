@@ -9,9 +9,8 @@ Welcome! 👋 This guide will help you (the **integrator**) connect your own sys
 The webhook system supports:
 
 - Registering your endpoint for specific event types
-- Unregistering it when no longer needed
-- Simulating an event to test delivery
 - Testing all webhooks using `/ping`
+- Unregistering it when no longer needed
 
 ---
 
@@ -29,93 +28,98 @@ Replace this with the actual URL provided to you before testing!
 
 ---
 
-## 🧪 How to Integrate Using Postman
+## 🧪 How to Test the Webhook System
 
 ### 🔹 1. Register Your Webhook
 
-**Goal**: Register your server’s endpoint (e.g. `http://localhost:9000/`) to receive event notifications.
+**Goal**: Register your server’s endpoint to receive event notifications.
 
 - **Method**: `POST`
-- **URL**: `https://<ngrok-url>/register`
+- **URL**: `https://e6c1-85-82-70-165.ngrok-free.app/register`
 
 #### Body:
 
 ```json
 {
-  "event_type": "payment_received",
-  "url": "http://localhost:9000/"
+  "event": "payment_received",
+  "url": "https://my-custom-subdomain.loca.lt/webhook"
 }
 ```
 
-> Replace `event_type` with the type you want to listen to  
-> Replace `url` with your own server’s webhook endpoint
+> Replace `event` with the event type you want to listen to (e.g., payment_received, payment_processed, etc.).  
+> Replace `url` with your webhook receiver's public URL (e.g., https://my-custom-subdomain.loca.lt/webhook).
 
 ✅ You should get:
 
 ```json
 {
-  "message": "Webhook registered for event 'payment_received'."
+  "message": "Webhook registered successfully",
+  "url": "https://my-custom-subdomain.loca.lt/webhook",
+  "event": "payment_received"
 }
 ```
 
+Repeat this step for any of the supported event types below:
+
+- `payment_received`
+- `payment_processed`
+- `invoice_processing`
+- `invoice_completed`
+
 ---
 
-### 🔹 2. Simulate an Event
+## 🔹 2. Register a Webhook with an Invalid URL (Optional)
 
-**Goal**: Trigger a test event and verify that your server receives the webhook.
+**Goal**: Test how the system handles a failing webhook.
 
 - **Method**: `POST`
-- **URL**: `https://<ngrok-url>/simulate-event`
+- **URL**: `https://e6c1-85-82-70-165.ngrok-free.app/register`
 
-#### Body:
-
-```json
-{
-  "event_type": "payment_received"
-}
-```
-
-✅ Your webhook server should receive:
-
-```json
-{
-  "event": "payment_received",
-  "data": "Sample payload"
-}
-```
-
----
-
-### 🔹 3. Test `/ping`
-
-**Goal**: Receive a basic test message at your webhook from the system.
-
-- **Method**: `GET`
-- **URL**: `https://<ngrok-url>/ping`
-
-✅ Your webhook should receive:
-
-```json
-{
-  "ping": "hello"
-}
-```
-
----
-
-### 🔹 4. Unregister Your Webhook
-
-**Goal**: Remove your endpoint from receiving notifications.
-
-- **Method**: `POST`
-- **URL**: `https://<ngrok-url>/unregister`
-
-#### Body:
+### Body:
 
 ```json
 {
   "event_type": "payment_received",
-  "url": "http://localhost:9000/"
+  "url": "https://this-needs-to-fail.lt/webhook"
+}
+```
+
+✅ This webhook will register successfully but will fail during ping.
+
+---
+
+## 🔹 3. Ping All Registered Webhooks
+
+**Goal**: Test if all registered webhooks respond correctly.
+
+- **Method**: `GET`
+- **URL**: `https://e6c1-85-82-70-165.ngrok-free.app/ping`
+
+✅ Your valid webhook receiver should log this:
+
+```json
+{
+  "message": "Ping from Webhook Service"
+}
+```
+
+❌ For the invalid URL (like `https://this-needs-to-fail.lt/webhook`), you should see an error logged on the exposee side indicating the failure.
+
+---
+
+## 🔹 4. Unregister Your Webhook
+
+**Goal**: Stop receiving events.
+
+- **Method**: `POST`
+- **URL**: `https://e6c1-85-82-70-165.ngrok-free.app/unregister`
+
+### Body:
+
+```json
+{
+  "event_type": "payment_received",
+  "url": "https://my-custom-subdomain.loca.lt/webhook"
 }
 ```
 
@@ -127,15 +131,41 @@ Replace this with the actual URL provided to you before testing!
 }
 ```
 
+Repeat this step for each registered webhook you want to remove.
+
 ---
 
 ## ✅ Supported Event Types
 
-These are the valid event types you can subscribe to:
+You can register for any of these:
 
 - `payment_received`
 - `payment_processed`
 - `invoice_processing`
 - `invoice_completed`
+
+---
+
+## 🛠️ Testing Workflow Summary
+
+1. **Start the Webhook Service**  
+   Run the exposee app and expose it using ngrok:  
+   `https://e6c1-85-82-70-165.ngrok-free.app`
+
+2. **Start the Webhook Receiver**  
+   Run your webhook server and expose it using localtunnel (or ngrok):  
+   `https://my-custom-subdomain.loca.lt`
+
+3. **Register Webhooks**  
+   Use the `/register` endpoint for each event you want to handle.
+
+4. **Ping All Webhooks**  
+   Use the `/ping` endpoint to test connectivity. Your receiver should print the payload.
+
+5. **Unregister Webhooks**  
+   Use the `/unregister` endpoint when done.
+
+6. **Test an Invalid URL**  
+   Register a bad URL and check that the ping fails correctly.
 
 ---
